@@ -1,15 +1,14 @@
 const { useState, useEffect } = React;
-const { Cloud, Sun, CloudRain, Wind, Droplets, Eye, Thermometer, MapPin, Heart, MessageCircle, Camera, Shirt, Users, Trophy, Settings, Home, Map, Calendar, Share, Star, Zap, Leaf, Shield, Smile, Frown, Meh, ThermometerSun, Umbrella, Navigation, TrendingUp } = lucide;
 
 const mockWeatherData = {
   current: { temperature: 24, feelsLike: 27, condition: 'Partly Cloudy', humidity: 65, windSpeed: 15, windDirection: 'NW', visibility: 10, uvIndex: 6, airQuality: 85, pressure: 1013, sunrise: '6:32 AM', sunset: '7:45 PM' },
   hourly: [
-    { time: '2PM', temp: 24, condition: 'sunny', icon: Sun },
-    { time: '3PM', temp: 26, condition: 'sunny', icon: Sun },
-    { time: '4PM', temp: 25, condition: 'cloudy', icon: Cloud },
-    { time: '5PM', temp: 23, condition: 'rainy', icon: CloudRain },
-    { time: '6PM', temp: 21, condition: 'rainy', icon: CloudRain },
-    { time: '7PM', temp: 20, condition: 'cloudy', icon: Cloud }
+    { time: '2PM', temp: 24, icon: '☀️' },
+    { time: '3PM', temp: 26, icon: '☀️' },
+    { time: '4PM', temp: 25, icon: '☁️' },
+    { time: '5PM', temp: 23, icon: '🌧️' },
+    { time: '6PM', temp: 21, icon: '🌧️' },
+    { time: '7PM', temp: 20, icon: '☁️' }
   ],
   weekly: [
     { day: 'Today', high: 24, low: 18, condition: 'Partly Cloudy', icon: Cloud, rain: 30 },
@@ -30,6 +29,13 @@ const aiInsights = [
   "High humidity today - stay hydrated and wear breathable fabrics 💧"
 ];
 
+const NavIcon = ({ label, emoji }) => (
+  <div className="flex flex-col items-center p-2">
+    <span className="text-lg" aria-hidden>{emoji}</span>
+    <span className="text-xs mt-1">{label}</span>
+  </div>
+);
+
 const WeatherApp = () => {
   const [currentView, setCurrentView] = useState('home');
   const [userPoints, setUserPoints] = useState(1250);
@@ -46,11 +52,11 @@ const WeatherApp = () => {
     <div className="max-w-md mx-auto min-h-screen bg-white">
       <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <MapPin size={18} className="text-blue-600" />
+          <span className="text-blue-600">📍</span>
           <span className="font-semibold text-gray-800">Adelaide, SA</span>
         </div>
         <div className="flex items-center space-x-2">
-          <Trophy size={16} className="text-yellow-500" />
+          <span className="text-yellow-500">🏆</span>
           <span className="text-sm font-medium text-gray-700">{userPoints} pts</span>
         </div>
       </div>
@@ -58,7 +64,7 @@ const WeatherApp = () => {
       <div className="p-4 space-y-4">
         <div className="bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl p-6 text-white">
           <div className="text-center">
-            <Cloud size={56} className="mx-auto mb-3 opacity-90" />
+            <div className="text-4xl mb-2">⛅</div>
             <div className="text-3xl font-light mb-1">{mockWeatherData.current.temperature}°C</div>
             <div className="text-base opacity-90 mb-1">{mockWeatherData.current.condition}</div>
             <div className="text-xs opacity-75">Feels like {mockWeatherData.current.feelsLike}°C</div>
@@ -67,7 +73,7 @@ const WeatherApp = () => {
 
         <div className="bg-white rounded-xl p-4 border border-gray-100">
           <div className="flex items-center justify-between">
-            <Wind className="text-blue-600" size={18} />
+            <div className="text-blue-600">💨</div>
             <div className="text-right">
               <div className="text-xs text-gray-500">Wind</div>
               <div className="font-semibold text-gray-800">{mockWeatherData.current.windSpeed} km/h {mockWeatherData.current.windDirection}</div>
@@ -78,13 +84,23 @@ const WeatherApp = () => {
         <div className="bg-white rounded-xl p-4 border border-gray-100">
           <h3 className="font-semibold text-gray-800 mb-3">Today's Hourly</h3>
           <div className="flex space-x-4 overflow-x-auto">
-            {mockWeatherData.hourly.map(({ time, temp, icon: Icon }, i) => (
+            {mockWeatherData.hourly.map(({ time, temp, icon }, i) => (
               <div key={i} className="flex-shrink-0 text-center">
                 <div className="text-xs text-gray-500 mb-2">{time}</div>
-                <Icon className="text-blue-600 mx-auto mb-2" size={22} />
+                <div className="text-xl mb-2">{icon}</div>
                 <div className="text-sm font-medium">{temp}°</div>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="bg-purple-50 border border-purple-100 rounded-xl p-4">
+          <div className="flex items-start space-x-3">
+            <div className="text-purple-500 mt-1">⚡</div>
+            <div>
+              <h3 className="font-medium text-purple-800 mb-2">AI Weather Insight</h3>
+              <p className="text-purple-700 text-sm leading-relaxed">{aiInsights[currentInsight]}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -92,21 +108,20 @@ const WeatherApp = () => {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
         <div className="flex justify-around">
           {[
-            { id: 'home', icon: Home, label: 'Home' },
-            { id: 'forecast', icon: Calendar, label: 'Forecast' },
-            { id: 'maps', icon: Map, label: 'Maps' },
-            { id: 'wardrobe', icon: Shirt, label: 'Wardrobe' },
-            { id: 'community', icon: Users, label: 'Community' }
-          ].map(({ id, icon: Icon, label }) => (
+            { id: 'home', emoji: '🏠', label: 'Home' },
+            { id: 'forecast', emoji: '📅', label: 'Forecast' },
+            { id: 'maps', emoji: '🗺️', label: 'Maps' },
+            { id: 'wardrobe', emoji: '👕', label: 'Wardrobe' },
+            { id: 'community', emoji: '👥', label: 'Community' }
+          ].map(({ id, emoji, label }) => (
             <button
               key={id}
               onClick={() => setCurrentView(id)}
-              className={`flex flex-col items-center p-2 rounded-lg transition-colors ${
+              className={`rounded-lg transition-colors ${
                 currentView === id ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600'
               }`}
             >
-              <Icon size={18} />
-              <span className="text-xs mt-1">{label}</span>
+              <NavIcon label={label} emoji={emoji} />
             </button>
           ))}
         </div>
