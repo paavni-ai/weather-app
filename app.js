@@ -23595,13 +23595,13 @@ var App = (() => {
       { time: "7PM", temp: 20, icon: "\u2601\uFE0F" }
     ],
     weekly: [
-      { day: "Today", high: 24, low: 18, condition: "Partly Cloudy", icon: Cloud, rain: 30 },
-      { day: "Fri", high: 26, low: 20, condition: "Sunny", icon: Sun, rain: 10 },
-      { day: "Sat", high: 23, low: 17, condition: "Cloudy", icon: Cloud, rain: 60 },
-      { day: "Sun", high: 21, low: 15, condition: "Rainy", icon: CloudRain, rain: 80 },
-      { day: "Mon", high: 19, low: 13, condition: "Rainy", icon: CloudRain, rain: 90 },
-      { day: "Tue", high: 22, low: 16, condition: "Cloudy", icon: Cloud, rain: 40 },
-      { day: "Wed", high: 25, low: 19, condition: "Sunny", icon: Sun, rain: 20 }
+      { day: "Today", high: 24, low: 18, condition: "Partly Cloudy", icon: "\u26C5", rain: 30 },
+      { day: "Fri", high: 26, low: 20, condition: "Sunny", icon: "\u2600\uFE0F", rain: 10 },
+      { day: "Sat", high: 23, low: 17, condition: "Cloudy", icon: "\u2601\uFE0F", rain: 60 },
+      { day: "Sun", high: 21, low: 15, condition: "Rainy", icon: "\u{1F327}\uFE0F", rain: 80 },
+      { day: "Mon", high: 19, low: 13, condition: "Rainy", icon: "\u{1F327}\uFE0F", rain: 90 },
+      { day: "Tue", high: 22, low: 16, condition: "Cloudy", icon: "\u2601\uFE0F", rain: 40 },
+      { day: "Wed", high: 25, low: 19, condition: "Sunny", icon: "\u2600\uFE0F", rain: 20 }
     ]
   };
   var aiInsights = [
