@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/paavni-ai/weather-app/issues"
   },
-  "homepage": "https://github.com/paavni-ai/weather-app#readme"
+  "homepage": "https://github.com/paavni-ai/weather-app#readme",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
 }

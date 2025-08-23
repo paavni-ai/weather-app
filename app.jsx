@@ -1,4 +1,5 @@
-const { useState, useEffect } = React;
+import React, { useState, useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
 
 const mockWeatherData = {
   current: { temperature: 24, feelsLike: 27, condition: 'Partly Cloudy', humidity: 65, windSpeed: 15, windDirection: 'NW', visibility: 10, uvIndex: 6, airQuality: 85, pressure: 1013, sunrise: '6:32 AM', sunset: '7:45 PM' },
@@ -131,5 +132,5 @@ const WeatherApp = () => {
 };
 
 const rootElement = document.getElementById('root');
-const root = ReactDOM.createRoot(rootElement);
+const root = createRoot(rootElement);
 root.render(<WeatherApp />);
